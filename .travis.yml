@@ -40,3 +40,16 @@ after_success:
 
   # Take the built production images and push to Docker Hub
   - docker-compose -f docker-compose.yml -f docker-compose.prod.yml push
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: Todo Application
+  env: TodoApplication-env
+  bucket_name: elasticbeanstalk-eu-west-1-614902049466
+  bucket_path: todo-app
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
